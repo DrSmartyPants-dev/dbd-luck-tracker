@@ -94,46 +94,82 @@
         </div>
     </div>
 
-    <script>let history = JSON.parse(localStorage.getItem('dbdMatches')) || [];
+    <script>
+        let history = JSON.parse(localStorage.getItem('dbdMatches')) || [];
 
-    function saveMatch() {
-        const killer = document.getElementById('killer-select').value;
-        const camp = document.getElementById('check-camp').checked;
-        const tunnel = document.getElementById('check-tunnel').checked;
+        function saveMatch() {
+            const killer = document.getElementById('killer-select').value;
+            const camp = document.getElementById('check-camp').checked;
+            const tunnel = document.getElementById('check-tunnel').checked;
 
-        history.push({ killer, camp, tunnel });
-        localStorage.setItem('dbdMatches', JSON.stringify(history));
+            history.push({ killer, camp, tunnel });
+            localStorage.setItem('dbdMatches', JSON.stringify(history));
 
-        alert("Partie enregistrée !");
-        updateDisplay();
-    }
-
-    function updateDisplay() {
-        const display = document.getElementById('display-stats');
-        if (history.length === 0) {
-            display.innerHTML = "Aucune donnée disponible.";
-            return;
-        }
-
-        let totalCamp = history.filter(m => m.camp).length;
-        let totalTunnel = history.filter(m => m.tunnel).length;
-
-        display.innerHTML = `
-            <div class="stat-item"><span>Matchs totaux :</span> <b>${history.length}</b></div>
-            <div class="stat-item"><span>Taux de Camp :</span> <b>${((totalCamp/history.length)*100).toFixed(1)}%</b></div>
-            <div class="stat-item"><span>Taux de Tunnel :</span> <b>${((totalTunnel/history.length)*100).toFixed(1)}%</b></div>
-        `;
-    }
-
-    function clearStats() {
-        if(confirm("Effacer toutes tes données ?")) {
-            localStorage.clear();
-            history = [];
+            alert("Partie enregistrée !");
             updateDisplay();
         }
-    }
 
-    updateDisplay();</script>
+        function updateDisplay() {
+            const display = document.getElementById('display-stats');
+            if (history.length === 0) {
+                display.innerHTML = "Aucune donnée disponible.";
+                return;
+            }
+
+            let totalCamp = history.filter(m => m.camp).length;
+            let totalTunnel = history.filter(m => m.tunnel).length;
+            let statsPerKiller = {};
+
+            // loop on each match to calculate stats per killer
+            history.forEach(match => {
+                const killerName = match.killer;
+
+                //If the killer is not yet in the stats, initialize it
+                if (!statsPerKiller[killerName]) {
+                    statsPerKiller[killerName] = { match: 0, camp: 0, tunnel: 0 };
+                }
+
+                // Increment all counter for this killer
+                statsPerKiller[killerName].match++;
+                if (match.camp) statsPerKiller[killerName].camp++;
+                if (match.tunnel) statsParKiller[killerName].tunnels++;
+            });
+
+            display.innerHTML = `
+                                                        <div class="stat-item"><span>Matchs totaux :</span> <b>${history.length}</b></div>
+                                                        <div class="stat-item"><span>Taux de Camp :</span> <b>${((totalCamp / history.length) * 100).toFixed(1)}%</b></div>
+                                                        <div class="stat-item"><span>Taux de Tunnel :</span> <b>${((totalTunnel / history.length) * 100).toFixed(1)}%</b></div>
+                                                    `;
+
+            let htmlKillerStats = "<h4>Stats par Tueur :</h4>";
+            // sort killers by number of match
+            const sortedKillers = Object.entries(statsParKiller).sort((a, b) => b[1].match - a[1].match);
+
+            sortedKillers.forEach(([killerName, data]) => {
+                let percentCamp = ((data.camp / data.match) * 100).toFixed(0);
+                let percentTunnel = ((data.tunnel / data.match) * 100).toFixed(0);
+                htmlKillerStats += `
+                            <div class="stat-item" style="flex-direction: column; align-items: flex-start; border-bottom: 1px solid #444; padding: 10px 0;">
+                                <div style="font-weight: bold; color: #e91e63;">${killerName} (${data.match} fois)</div>
+                                <div style="font-size: 13px; color: #bbb;">
+                                    Camp : ${percentCamp}% | Tunnel : ${percentTunnel}%
+                                </div>
+                            </div>
+                    `;
+            });
+
+            display.innerHTML += htmlKillerStats;
+        }
+
+        function clearStats() {
+            if (confirm("Effacer toutes tes données ?")) {
+                localStorage.clear();
+                history = [];
+                updateDisplay();
+            }
+        }
+
+        updateDisplay();</script>
 
 </body>
 </html>
