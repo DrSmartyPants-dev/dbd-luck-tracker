@@ -178,26 +178,32 @@
 
                 //If the killer is not yet in the stats, initialize it
                 if (!statsPerKiller[killerName]) {
-                    statsPerKiller[killerName] = { match: 0, camp: 0, tunnel: 0 };
+                    statsPerKiller[killerName] = { match: 0, camp: 0, tunnel: 0, slug: 0, escaped: 0, hatch: 0, bot: 0, meanally: 0, nicegame: 0 };
                 }
 
                 // Increment all counter for this killer
                 statsPerKiller[killerName].match++;
                 if (match.camp) statsPerKiller[killerName].camp++;
                 if (match.tunnel) statsPerKiller[killerName].tunnel++;
+                if (match.slug) statsPerKiller[killerName].slug++;
+                if (match.escaped) statsPerKiller[killerName].escaped++;
+                if (match.hatch) statsPerKiller[killerName].hatch++;
+                if (match.bot) statsPerKiller[killerName].bot++;
+                if (match.meanally) statsPerKiller[killerName].meanally++;
+                if (match.nicegame) statsPerKiller[killerName].nicegame++;
             });
 
             display.innerHTML = `
-                                    <div class="stat-item"><span>Matchs totaux :</span> <b>${history.length}</b></div>
-                                    <div class="stat-item"><span>Taux de Camp :</span> <b>${((totalCamp / history.length) * 100).toFixed(1)}%</b></div>
-                                    <div class="stat-item"><span>Taux de Tunnel :</span> <b>${((totalTunnel / history.length) * 100).toFixed(1)}%</b></div>
-                                    <div class="stat-item"><span>Taux de Slug :</span> <b>${((totalSlug / history.length) * 100).toFixed(1)}%</b></div>
-                                    <div class="stat-item"><span>Taux de Victoire :</span> <b>${((totalEscaped / history.length) * 100).toFixed(1)}%</b></div>
-                                    <div class="stat-item"><span>Taux de Sortie par trappe :</span> <b>${((totalHatch / history.length) * 100).toFixed(1)}%</b></div>
-                                    <div class="stat-item"><span>Taux de Bot :</span> <b>${((totalBot / history.length) * 100).toFixed(1)}%</b></div>
-                                    <div class="stat-item"><span>Taux de Méchant survivant :</span> <b>${((totalMeanally / history.length) * 100).toFixed(1)}%</b></div>
-                                    <div class="stat-item"><span>Taux de Partie plaisante :</span> <b>${((totalNicegame / history.length) * 100).toFixed(1)}%</b></div>
-                                `;
+                                        <div class="stat-item"><span>Matchs totaux :</span> <b>${history.length}</b></div>
+                                        <div class="stat-item"><span>Taux de Camp :</span> <b>${((totalCamp / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Tunnel :</span> <b>${((totalTunnel / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Slug :</span> <b>${((totalSlug / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Victoire :</span> <b>${((totalEscaped / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Sortie par trappe :</span> <b>${((totalHatch / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Bot :</span> <b>${((totalBot / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Méchant survivant :</span> <b>${((totalMeanally / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Partie plaisante :</span> <b>${((totalNicegame / history.length) * 100).toFixed(1)}%</b></div>
+                                    `;
 
             let htmlKillerStats = "<h4>Stats par Tueur :</h4>";
             // sort killers by number of match
@@ -207,13 +213,19 @@
                 let percentCamp = ((data.camp / data.match) * 100).toFixed(0);
                 let percentTunnel = ((data.tunnel / data.match) * 100).toFixed(0);
                 htmlKillerStats += `
-                                        <div class="stat-item" style="flex-direction: column; align-items: flex-start; border-bottom: 1px solid #444; padding: 10px 0;">
-                                            <div style="font-weight: bold; color: #e91e63;">${killerName} (${data.match} fois)</div>
-                                            <div style="font-size: 13px; color: #bbb;">
-                                                Camp : ${percentCamp}% | Tunnel : ${percentTunnel}%
+                                            <div class="stat-item" style="flex-direction: column; align-items: flex-start; border-bottom: 1px solid #444; padding: 10px 0;">
+                                                <div style="font-weight: bold; color: #e91e63;">${killerName} (${data.match} fois)</div>
+                                                <div style="font-size: 13px; color: #bbb;">
+                                                    Camp : ${percentCamp}% | Tunnel : ${percentTunnel}% | 
+                                                    Slug : ${((data.slug / data.match) * 100).toFixed(0)}% | 
+                                                    Victoire : ${((data.escaped / data.match) * 100).toFixed(0)}% | 
+                                                    Trappe : ${((data.hatch / data.match) * 100).toFixed(0)}% | 
+                                                    Bot : ${((data.bot / data.match) * 100).toFixed(0)}% | 
+                                                    Méchant survivant : ${((data.meanally / data.match) * 100).toFixed(0)}% | 
+                                                    Partie plaisante : ${((data.nicegame / data.match) * 100).toFixed(0)}%
+                                                </div>
                                             </div>
-                                        </div>
-                                `;
+                                    `;
             });
 
             display.innerHTML += htmlKillerStats;
