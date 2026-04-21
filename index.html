@@ -187,7 +187,10 @@
                 if (match.tunnel) statsPerKiller[killerName].tunnel++;
                 if (match.slug) statsPerKiller[killerName].slug++;
                 if (match.escaped) statsPerKiller[killerName].escaped++;
-                if (match.hatch) statsPerKiller[killerName].hatch++;
+                if (match.hatch) {
+                    statsPerKiller[killerName].hatch++;
+                    statsPerKiller[killerName].escaped++
+                }
                 if (match.bot) statsPerKiller[killerName].bot++;
                 if (match.meanally) statsPerKiller[killerName].meanally++;
                 if (match.nicegame) statsPerKiller[killerName].nicegame++;
