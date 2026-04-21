@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBD Luck Tracker</title>
+    <style>
+        body {
+            background: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+
+        select, button {
+            padding: 12px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        select {
+            background: #333;
+            color: white;
+            width: 80%;
+        }
+
+        .btn-track {
+            background: #e91e63;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            width: 80%;
+        }
+
+        .stats {
+            margin-top: 30px;
+            text-align: left;
+            background: #252525;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #444;
+            padding: 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>DBD Match Tracker</h1>
+
+        <label for="killer-select">Tueur rencontré :</label><br>
+        <select id="killer-select">
+            <option value="Le Trappeur">Le Trappeur</option>
+            <option value="Le Spectre">Le Spectre</option>
+            <option value="Le Montagnard">Le Montagnard</option>
+            <option value="L'Infirmière">L'Infirmière</option>
+            <option value="La Chasseuse">La Chasseuse</option>
+            <option value="Blight">Le Fléau (Blight)</option>
+            <option value="Wesker">Le Mastermind (Wesker)</option>
+            <option value="Chucky">The Good Guy (Chucky)</option>
+            <option value="Lich">La Liche (Vecna)</option>
+            <!-- Ajoute les autres ici -->
+        </select>
+
+        <div>
+            <input type="checkbox" id="check-camp"> <label for="check-camp">Campé ?</label>
+            <input type="checkbox" id="check-tunnel"> <label for="check-tunnel">Tunnelé ?</label>
+        </div>
+
+        <button class="btn-track" onclick="saveMatch()">Enregistrer la partie</button>
+
+        <div class="stats">
+            <h3>Tes Statistiques</h3>
+            <div id="display-stats">Chargement...</div>
+            <button onclick="clearStats()" style="background: #444; color: #ccc; font-size: 12px;">Réinitialiser</button>
+        </div>
+    </div>
+
+    <script>let history = JSON.parse(localStorage.getItem('dbdMatches')) || [];
+
+    function saveMatch() {
+        const killer = document.getElementById('killer-select').value;
+        const camp = document.getElementById('check-camp').checked;
+        const tunnel = document.getElementById('check-tunnel').checked;
+
+        history.push({ killer, camp, tunnel });
+        localStorage.setItem('dbdMatches', JSON.stringify(history));
+
+        alert("Partie enregistrée !");
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        const display = document.getElementById('display-stats');
+        if (history.length === 0) {
+            display.innerHTML = "Aucune donnée disponible.";
+            return;
+        }
+
+        let totalCamp = history.filter(m => m.camp).length;
+        let totalTunnel = history.filter(m => m.tunnel).length;
+
+        display.innerHTML = `
+            <div class="stat-item"><span>Matchs totaux :</span> <b>${history.length}</b></div>
+            <div class="stat-item"><span>Taux de Camp :</span> <b>${((totalCamp/history.length)*100).toFixed(1)}%</b></div>
+            <div class="stat-item"><span>Taux de Tunnel :</span> <b>${((totalTunnel/history.length)*100).toFixed(1)}%</b></div>
+        `;
+    }
+
+    function clearStats() {
+        if(confirm("Effacer toutes tes données ?")) {
+            localStorage.clear();
+            history = [];
+            updateDisplay();
+        }
+    }
+
+    updateDisplay();</script>
+
+</body>
+</html>
