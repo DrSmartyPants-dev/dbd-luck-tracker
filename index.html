@@ -132,7 +132,7 @@
                 // Increment all counter for this killer
                 statsPerKiller[killerName].match++;
                 if (match.camp) statsPerKiller[killerName].camp++;
-                if (match.tunnel) statsParKiller[killerName].tunnels++;
+                if (match.tunnel) statsPerKiller[killerName].tunnels++;
             });
 
             display.innerHTML = `
@@ -143,7 +143,7 @@
 
             let htmlKillerStats = "<h4>Stats par Tueur :</h4>";
             // sort killers by number of match
-            const sortedKillers = Object.entries(statsParKiller).sort((a, b) => b[1].match - a[1].match);
+            const sortedKillers = Object.entries(statsPerKiller).sort((a, b) => b[1].match - a[1].match);
 
             sortedKillers.forEach(([killerName, data]) => {
                 let percentCamp = ((data.camp / data.match) * 100).toFixed(0);
