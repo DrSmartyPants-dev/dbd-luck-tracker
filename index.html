@@ -68,16 +68,50 @@
 
         <label for="killer-select">Tueur rencontré :</label><br>
         <select id="killer-select">
-            <option value="Le Trappeur">Le Trappeur</option>
-            <option value="Le Spectre">Le Spectre</option>
-            <option value="Le Montagnard">Le Montagnard</option>
-            <option value="L'Infirmière">L'Infirmière</option>
-            <option value="La Chasseuse">La Chasseuse</option>
-            <option value="Blight">Le Fléau (Blight)</option>
-            <option value="Wesker">Le Mastermind (Wesker)</option>
-            <option value="Chucky">The Good Guy (Chucky)</option>
-            <option value="Lich">La Liche (Vecna)</option>
-            <!-- Ajoute les autres ici -->
+            <option value="Le Piégeur">Le Piégeur (Trapper)</option>
+            <option value="Le Spectre">Le Spectre (Wraith)</option>
+            <option value="Le Montagnard">Le Montagnard (Hillbilly)</option>
+            <option value="L'Infirmière">L'Infirmière (Nurse)</option>
+            <option value="La Harpie">La Harpie (Hag)</option>
+            <option value="Le Docteur">Le Docteur (Doctor)</option>
+            <option value="La Chasseuse">La Chasseuse (Huntress)</option>
+            <option value="Le Clown">Le Clown (Clown)</option>
+            <option value="L'Esprit">L'Esprit (Spirit)</option>
+            <option value="La Légion">La Légion (Legion)</option>
+            <option value="La Peste">La Peste (Plague)</option>
+            <option value="L'Oni">L'Oni (Oni)</option>
+            <option value="Le Lance-mort">Le Lance-mort (Deathslinger)</option>
+            <option value="Le Fléau">Le Fléau (Blight)</option>
+            <option value="Les Jumeaux">Les Jumeaux (Twins)</option>
+            <option value="Le Farceur">Le Farceur (Trickster)</option>
+            <option value="L'Artiste">L'Artiste (Artist)</option>
+            <option value="Le Dragage">Le Dragage (Dredge)</option>
+            <option value="Le Chevalier">Le Chevalier (Knight)</option>
+            <option value="La Marchande de Crânes">La Marchande de Crânes (Skull Merchant)</option>
+            <option value="La Singularité">La Singularité (Singularity)</option>
+            <option value="L'Inconnu">L'Inconnu (Unknown)</option>
+            <option value="La Maîtresse des Chiens">La Maîtresse des Chiens (Houndmaster)</option>
+            <option value="Le Krasue">Le Krasue (Krasue)</option>
+
+            <!-- Tueurs Sous Licence -->
+            <option value="La Silhouette">La Silhouette (The Shape / Michael Myers)</option>
+            <option value="Le Cannibale">Le Cannibale (Cannibal / Leatherface)</option>
+            <option value="Le Cauchemar">Le Cauchemar (Nightmare / Freddy Krueger)</option>
+            <option value="La Truie">La Truie (Pig / Amanda Young)</option>
+            <option value="Ghost Face">Ghost Face (Ghost Face)</option>
+            <option value="Le Démogorgon">Le Démogorgon (Demogorgon)</option>
+            <option value="L'Exécuteur">L'Exécuteur (Executioner / Pyramid Head)</option>
+            <option value="Le Nemesis">Le Nemesis (Nemesis)</option>
+            <option value="Le Cénobite">Le Cénobite (Cenobite / Pinhead)</option>
+            <option value="L'Onryō">L'Onryō (Onryō / Sadako)</option>
+            <option value="Le Mastermind">Le Mastermind (Mastermind / Wesker)</option>
+            <option value="Le Xénomorphe">Le Xénomorphe (Xenomorph / Alien)</option>
+            <option value="Le Brave Gars">Le Brave Gars (Good Guy / Chucky)</option>
+            <option value="La Liche">La Liche (Lich / Vecna)</option>
+            <option value="Le Seigneur des Ténèbres">Le Seigneur des Ténèbres (Dark Lord / Dracula)</option>
+            <option value="La Goule">La Goule (Ghoul / Kaneki)</option>
+            <option value="L'Animatronique">L'Animatronique (Animatronic / Springtrap)</option>
+            <option value="Le Premier">Le Premier (The First / Henry Creel)</option>
         </select>
 
         <div>
@@ -136,10 +170,10 @@
             });
 
             display.innerHTML = `
-                                                        <div class="stat-item"><span>Matchs totaux :</span> <b>${history.length}</b></div>
-                                                        <div class="stat-item"><span>Taux de Camp :</span> <b>${((totalCamp / history.length) * 100).toFixed(1)}%</b></div>
-                                                        <div class="stat-item"><span>Taux de Tunnel :</span> <b>${((totalTunnel / history.length) * 100).toFixed(1)}%</b></div>
-                                                    `;
+                                                            <div class="stat-item"><span>Matchs totaux :</span> <b>${history.length}</b></div>
+                                                            <div class="stat-item"><span>Taux de Camp :</span> <b>${((totalCamp / history.length) * 100).toFixed(1)}%</b></div>
+                                                            <div class="stat-item"><span>Taux de Tunnel :</span> <b>${((totalTunnel / history.length) * 100).toFixed(1)}%</b></div>
+                                                        `;
 
             let htmlKillerStats = "<h4>Stats par Tueur :</h4>";
             // sort killers by number of match
@@ -149,13 +183,13 @@
                 let percentCamp = ((data.camp / data.match) * 100).toFixed(0);
                 let percentTunnel = ((data.tunnel / data.match) * 100).toFixed(0);
                 htmlKillerStats += `
-                            <div class="stat-item" style="flex-direction: column; align-items: flex-start; border-bottom: 1px solid #444; padding: 10px 0;">
-                                <div style="font-weight: bold; color: #e91e63;">${killerName} (${data.match} fois)</div>
-                                <div style="font-size: 13px; color: #bbb;">
-                                    Camp : ${percentCamp}% | Tunnel : ${percentTunnel}%
+                                <div class="stat-item" style="flex-direction: column; align-items: flex-start; border-bottom: 1px solid #444; padding: 10px 0;">
+                                    <div style="font-weight: bold; color: #e91e63;">${killerName} (${data.match} fois)</div>
+                                    <div style="font-size: 13px; color: #bbb;">
+                                        Camp : ${percentCamp}% | Tunnel : ${percentTunnel}%
+                                    </div>
                                 </div>
-                            </div>
-                    `;
+                        `;
             });
 
             display.innerHTML += htmlKillerStats;
