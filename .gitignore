@@ -1,0 +1,28 @@
+# --- Système ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Visual Studio / VS Code ---
+.vscode/
+.history/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache & configuration
+.vs/
+obj/
+bin/
+*.user
+*.suo
+applicationhost.config
+
+# --- Dossiers temporaires (Live Server, etc.) ---
+.live-server/
+tmp/
+
+# --- Logs ---
+*.log
+npm-debug.log*
