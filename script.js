@@ -69,13 +69,13 @@ function updateDisplay() {
                                         <div class="stat-item"><span>Matchs totaux :</span> <b>${history.length}</b></div>
                                         <div class="stat-item"><span>Taux de Camp :</span> <b>${((totalCamp / history.length) * 100).toFixed(1)}%</b></div>
                                         <div class="stat-item"><span>Taux de Tunnel :</span> <b>${((totalTunnel / history.length) * 100).toFixed(1)}%</b></div>
-                                        <div class="stat-item"><span>Taux de Slug :</span> <b>${((totalSlug / history.length) * 100).toFixed(1)}%</b></div>
-                                        <div class="stat-item"><span>Taux de Victoire :</span> <b>${((totalEscaped / history.length) * 100).toFixed(1)}%</b></div>
-                                        <div class="stat-item"><span>Taux de Sortie par trappe :</span> <b>${((totalHatch / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Slug :</span> <b>${((totalSlug / history.length) * 100).toFixed(1)}%</b></div>                                                                                
                                         <div class="stat-item"><span>Taux de Bot :</span> <b>${((totalBot / history.length) * 100).toFixed(1)}%</b></div>
                                         <div class="stat-item"><span>Taux de Méchant survivant :</span> <b>${((totalMeanally / history.length) * 100).toFixed(1)}%</b></div>                                        
                                         <div class="stat-item"><span>Taux de Survivant hacker :</span> <b>${((totalSurviverHacker / history.length) * 100).toFixed(1)}%</b></div>
                                         <div class="stat-item"><span>Taux de Killer hacker :</span> <b>${((totalKillerHacker / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Victoire :</span> <b>${((totalEscaped / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Sortie par trappe :</span> <b>${((totalHatch / history.length) * 100).toFixed(1)}%</b></div>
                                         <div class="stat-item"><span>Taux de Partie plaisante :</span> <b>${((totalNicegame / history.length) * 100).toFixed(1)}%</b></div>
 
                                         <h4>Stats par Tueur :</h4>
