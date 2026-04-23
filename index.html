@@ -201,6 +201,7 @@
                 if (match.meanally) statsPerKiller[killerName].meanally++;
                 if (match.nicegame) statsPerKiller[killerName].nicegame++;
                 if (match.killerhacker) statsPerKiller[killerName].killerhacker++;
+                if (match.surviverhacker) statsPerKiller[killerName].surviverhacker++;
             });
 
             display.innerHTML = `
@@ -211,9 +212,10 @@
                                         <div class="stat-item"><span>Taux de Victoire :</span> <b>${((totalEscaped / history.length) * 100).toFixed(1)}%</b></div>
                                         <div class="stat-item"><span>Taux de Sortie par trappe :</span> <b>${((totalHatch / history.length) * 100).toFixed(1)}%</b></div>
                                         <div class="stat-item"><span>Taux de Bot :</span> <b>${((totalBot / history.length) * 100).toFixed(1)}%</b></div>
-                                        <div class="stat-item"><span>Taux de Méchant survivant :</span> <b>${((totalMeanally / history.length) * 100).toFixed(1)}%</b></div>
-                                        <div class="stat-item"><span>Taux de Partie plaisante :</span> <b>${((totalNicegame / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Méchant survivant :</span> <b>${((totalMeanally / history.length) * 100).toFixed(1)}%</b></div>                                        
+                                        <div class="stat-item"><span>Taux de Survivant hacker :</span> <b>${((totalSurviverHacker / history.length) * 100).toFixed(1)}%</b></div>
                                         <div class="stat-item"><span>Taux de Killer hacker :</span> <b>${((totalKillerHacker / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Partie plaisante :</span> <b>${((totalNicegame / history.length) * 100).toFixed(1)}%</b></div>
                                     `;
 
             let htmlKillerStats = "<h4>Stats par Tueur :</h4>";
