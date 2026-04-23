@@ -119,10 +119,12 @@
             <input type="checkbox" id="check-camp"> <label for="check-camp">Campé ?</label>
             <input type="checkbox" id="check-tunnel"> <label for="check-tunnel">Tunnelé ?</label>
             <input type="checkbox" id="check-slug"> <label for="check-slug">Sluggé ?</label>
-            <input type="checkbox" id="check-escaped"> <label for="check-escaped">Echapé ?</label>
+            <input type="checkbox" id="check-escaped"> <label for="check-escaped">Victoire ?</label>
             <input type="checkbox" id="check-hatch"> <label for="check-hatch">Trappe ?</label>
             <input type="checkbox" id="check-bot"> <label for="check-bot">Bot ?</label>
             <input type="checkbox" id="check-meanally"> <label for="check-meanally">Méchant Survivant ?</label>
+            <input type="checkbox" id="check-surviverhacker"> <label for="check-surviverhacker">Survivant Hacker ?</label>
+            <input type="checkbox" id="check-killerhacker"> <label for="check-killerhacker">Killer Hacker ?</label>
             <input type="checkbox" id="check-nicegame"> <label for="check-nicegame">Partie Plaisante ?</label>
         </div>
 
@@ -148,7 +150,9 @@
             const bot = document.getElementById('check-bot').checked;
             const meanally = document.getElementById('check-meanally').checked;
             const nicegame = document.getElementById('check-nicegame').checked;
-            history.push({ killer, camp, tunnel, slug, escaped, hatch, bot, meanally, nicegame });
+            const surviverhacker = document.getElementById('check-surviverhacker').checked;
+            const killerhacker = document.getElementById('check-killerhacker').checked;
+            history.push({ killer, camp, tunnel, slug, escaped, hatch, bot, meanally, nicegame, surviverhacker, killerhacker });
             localStorage.setItem('dbdMatches', JSON.stringify(history));
 
             alert("Partie enregistrée !");
@@ -170,6 +174,8 @@
             let totalBot = history.filter(m => m.bot).length;
             let totalMeanally = history.filter(m => m.meanally).length;
             let totalNicegame = history.filter(m => m.nicegame).length;
+            let totalSurviverHacker = history.filter(m => m.surviverhacker).length;
+            let totalKillerHacker = history.filter(m => m.killerhacker).length;
             let statsPerKiller = {};
 
             // loop on each match to calculate stats per killer
@@ -178,7 +184,7 @@
 
                 //If the killer is not yet in the stats, initialize it
                 if (!statsPerKiller[killerName]) {
-                    statsPerKiller[killerName] = { match: 0, camp: 0, tunnel: 0, slug: 0, escaped: 0, hatch: 0, bot: 0, meanally: 0, nicegame: 0 };
+                    statsPerKiller[killerName] = { match: 0, camp: 0, tunnel: 0, slug: 0, escaped: 0, hatch: 0, bot: 0, meanally: 0, nicegame: 0, killerhacker: 0 };
                 }
 
                 // Increment all counter for this killer
@@ -194,6 +200,7 @@
                 if (match.bot) statsPerKiller[killerName].bot++;
                 if (match.meanally) statsPerKiller[killerName].meanally++;
                 if (match.nicegame) statsPerKiller[killerName].nicegame++;
+                if (match.killerhacker) statsPerKiller[killerName].killerhacker++;
             });
 
             display.innerHTML = `
@@ -206,6 +213,7 @@
                                         <div class="stat-item"><span>Taux de Bot :</span> <b>${((totalBot / history.length) * 100).toFixed(1)}%</b></div>
                                         <div class="stat-item"><span>Taux de Méchant survivant :</span> <b>${((totalMeanally / history.length) * 100).toFixed(1)}%</b></div>
                                         <div class="stat-item"><span>Taux de Partie plaisante :</span> <b>${((totalNicegame / history.length) * 100).toFixed(1)}%</b></div>
+                                        <div class="stat-item"><span>Taux de Killer hacker :</span> <b>${((totalKillerHacker / history.length) * 100).toFixed(1)}%</b></div>
                                     `;
 
             let htmlKillerStats = "<h4>Stats par Tueur :</h4>";
@@ -225,6 +233,8 @@
                                                     Trappe : ${((data.hatch / data.match) * 100).toFixed(0)}% | 
                                                     Bot : ${((data.bot / data.match) * 100).toFixed(0)}% | 
                                                     Méchant survivant : ${((data.meanally / data.match) * 100).toFixed(0)}% | 
+                                                    Survivant hacker : ${((data.surviverhacker / data.match) * 100).toFixed(0)}% | 
+                                                    Killer hacker : ${((data.killerhacker / data.match) * 100).toFixed(0)}% | 
                                                     Partie plaisante : ${((data.nicegame / data.match) * 100).toFixed(0)}%
                                                 </div>
                                             </div>
