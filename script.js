@@ -64,7 +64,7 @@ function updateDisplay() {
         if (match.surviverhacker) statsPerKiller[killerName].surviverhacker++;
     });
 
-    
+
     let completeStatsContent = `
                                         <div class="stat-item"><span>Matchs totaux :</span> <b>${history.length}</b></div>
                                         <div class="stat-item"><span>Taux de Camp :</span> <b>${((totalCamp / history.length) * 100).toFixed(1)}%</b></div>
@@ -79,23 +79,24 @@ function updateDisplay() {
                                         <div class="stat-item"><span>Taux de Partie plaisante :</span> <b>${((totalNicegame / history.length) * 100).toFixed(1)}%</b></div>
 
                                         <h4>Stats par Tueur :</h4>
-                                        <table class="stats-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Tueur</th>                                                    
-                                                    <th class="stat-value">Camp %</th>
-                                                    <th class="stat-value">Tunnel %</th>
-                                                    <th class="stat-value">Slug %</th>                                                                                                        
-                                                    <th class="stat-value">Bot %</th>
-                                                    <th class="stat-value">Méchant survivant %</th>
-                                                    <th class="stat-value">Survivant hacker %</th>
-                                                    <th class="stat-value">Killer hacker %</th>
-                                                    <th class="stat-value">Victoire %</th>
-                                                    <th class="stat-value">Trappe %</th>
-                                                    <th class="stat-value">Partie plaisante %</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                        <div class="table-responsive">
+                                            <table class="stats-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tueur</th>                                                    
+                                                        <th class="stat-value">Camp</th>
+                                                        <th class="stat-value">Tunnel</th>
+                                                        <th class="stat-value">Slug</th>                                                                                                        
+                                                        <th class="stat-value">Bot</th>
+                                                        <th class="stat-value">Méchant survivant</th>
+                                                        <th class="stat-value">Survivant hacker</th>
+                                                        <th class="stat-value">Killer hacker</th>
+                                                        <th class="stat-value">Victoire</th>
+                                                        <th class="stat-value">Trappe</th>
+                                                        <th class="stat-value">Partie plaisante</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
                                     `;
 
     // sort killers by number of match
@@ -114,7 +115,7 @@ function updateDisplay() {
         let percentNicegame = ((data.nicegame / data.match) * 100).toFixed(0);
         completeStatsContent += `
                                             <tr>
-                                                <td class="killer-name">${killerName} (${data.match} fois)</td>
+                                                <td class="killer-name">${killerName} (${data.match})</td>
                                                 <td class="stat-value">${percentCamp}%</td>
                                                 <td class="stat-value">${percentTunnel}%</td>
                                                 <td class="stat-value">${percentSlug}%</td>
@@ -130,7 +131,7 @@ function updateDisplay() {
 
     });
 
-    completeStatsContent += `</tbody></table>`;
+    completeStatsContent += `</tbody></table></div>`;
 
     display.innerHTML = completeStatsContent;
 }

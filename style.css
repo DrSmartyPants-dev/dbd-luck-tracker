@@ -41,9 +41,16 @@ body {
 }
 
 .killer-name {
+    position: sticky;
+    left: 0;
+    background: #1e1e1e; /* Same color as the page background to hide text going under it */
+    z-index: 10;
+    border-right: 2px solid #e91e63;
+    padding: 10px 20px;
     text-align: left !important;
     font-weight: bold;
-    min-width: 130px;
+    width: 1%;
+    white-space: nowrap;
     color: #e91e63; /* Rose DBD */
 }
 
@@ -86,6 +93,7 @@ select {
 .stats-container {
     overflow-x: auto;
     width: 100%;
+    display: block;
 }
 
 .stat-item {
@@ -95,12 +103,29 @@ select {
     padding: 8px 0;
 }
 
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 15px;
+    border: 1px solid #333;
+}
+
 .stats-table {
     width: 100%;
-    border-collapse: collapse;
-    font-size: 11px;
-    table-layout: auto;
-    margin-top: 15px;
+    table-layout: auto !important;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.stats-table th:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #1a1a1a !important;
+    z-index: 11;
+    width: max-content;
+    min-width: 120px;
+    border-right: 2px solid #e91e63;
 }
 
 .stats-table th, .stats-table td {
