@@ -7,7 +7,8 @@ body {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 900px;
+    width: 90%;
     margin: auto;
     background: #1e1e1e;
     padding: 20px;
@@ -49,6 +50,7 @@ body {
     padding: 10px 20px;
     text-align: left !important;
     font-weight: bold;
+    font-size: 12px;
     width: 1%;
     white-space: nowrap;
     color: #e91e63; /* Rose DBD */
