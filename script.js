@@ -145,9 +145,15 @@ function clearStats() {
 }
 
 function removeLastEntry() {
-
-    if (confirm("Supprimer la dernière entrée ? (Tueur : " + history[history.length - 1]?.killer + ")")) {
+    if (history.length === 0) {
+        alert("Aucune entrée à supprimer !");
+        return;
+    }
+    const lastMatch = history[history.length - 1];
+    if (confirm("Supprimer la dernière entrée ? (Tueur : " + lastMatch?.killer + ")")) {
         history.pop();
+        // Save the updated history to localStorage
+        localStorage.setItem('dbdMatches', JSON.stringify(history));
         updateDisplay();
     }
 }
