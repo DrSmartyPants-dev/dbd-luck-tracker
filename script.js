@@ -5,13 +5,13 @@ function saveMatch() {
     const camp = document.getElementById('check-camp').checked;
     const tunnel = document.getElementById('check-tunnel').checked;
     const slug = document.getElementById('check-slug').checked;
-    const escaped = document.getElementById('check-escaped').checked;
-    const hatch = document.getElementById('check-hatch').checked;
     const bot = document.getElementById('check-bot').checked;
     const meanally = document.getElementById('check-meanally').checked;
-    const nicegame = document.getElementById('check-nicegame').checked;
     const surviverhacker = document.getElementById('check-surviverhacker').checked;
     const killerhacker = document.getElementById('check-killerhacker').checked;
+    const escaped = document.getElementById('check-escaped').checked;
+    const hatch = document.getElementById('check-hatch').checked;
+    const nicegame = document.getElementById('check-nicegame').checked;
     history.push({ killer, camp, tunnel, slug, escaped, hatch, bot, meanally, nicegame, surviverhacker, killerhacker });
     localStorage.setItem('dbdMatches', JSON.stringify(history));
 
@@ -144,22 +144,12 @@ function clearStats() {
     }
 }
 
+function removeLastEntry() {
+
+    if (confirm("Supprimer la dernière entrée ? (Tueur : " + history[history.length - 1]?.killer + ")")) {
+        history.pop();
+        updateDisplay();
+    }
+}
+
 updateDisplay();
-
-
-//htmlKillerStats += `
-//                                    <div class="stat-item" style="flex-direction: column; align-items: flex-start; border-bottom: 1px solid #444; padding: 10px 0;">
-//                                        <div style="font-weight: bold; color: #e91e63;">${killerName} (${data.match} fois)</div>
-//                                        <div style="font-size: 13px; color: #bbb;">
-//                                            Camp : ${percentCamp}% | Tunnel : ${percentTunnel}% |
-//                                            Slug : ${((data.slug / data.match) * 100).toFixed(0)}% |
-//                                            Victoire : ${((data.escaped / data.match) * 100).toFixed(0)}% |
-//                                            Trappe : ${((data.hatch / data.match) * 100).toFixed(0)}% |
-//                                            Bot : ${((data.bot / data.match) * 100).toFixed(0)}% |
-//                                            Méchant survivant : ${((data.meanally / data.match) * 100).toFixed(0)}% |
-//                                            Survivant hacker : ${((data.surviverhacker / data.match) * 100).toFixed(0)}% |
-//                                            Killer hacker : ${((data.killerhacker / data.match) * 100).toFixed(0)}% |
-//                                            Partie plaisante : ${((data.nicegame / data.match) * 100).toFixed(0)}%
-//                                        </div>
-//                                    </div>
-//                            `;
