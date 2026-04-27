@@ -61,44 +61,44 @@
 
         <div class="checkbox-grid">
             <div class="checkbox-item">
-                <input type="checkbox" id="check-camp"> <label for="check-camp">Campé ?</label>
+                <input type="checkbox" id="check-camp"> <label for="check-camp">Campé?</label>
             </div>
             <div class="checkbox-item">
-                <input type="checkbox" id="check-tunnel"> <label for="check-tunnel">Tunnelé ?</label>
+                <input type="checkbox" id="check-tunnel"> <label for="check-tunnel">Tunnelé?</label>
             </div>
             <div class="checkbox-item">
-                <input type="checkbox" id="check-slug"> <label for="check-slug">Sluggé ?</label>
+                <input type="checkbox" id="check-slug"> <label for="check-slug">Sluggé?</label>
             </div>
             <div class="checkbox-item">
-                <input type="checkbox" id="check-bot"> <label for="check-bot">Bot ?</label>
+                <input type="checkbox" id="check-bot"> <label for="check-bot">Bot?</label>
             </div>
             <div class="checkbox-item">
-                <input type="checkbox" id="check-meanally"> <label for="check-meanally">Méchant Survivant ?</label>
+                <input type="checkbox" id="check-meanally"> <label for="check-meanally">Méchant Survivant?</label>
             </div>
             <div class="checkbox-item">
-                <input type="checkbox" id="check-surviverhacker"> <label for="check-surviverhacker">Survivant Hacker ?</label>
+                <input type="checkbox" id="check-surviverhacker"> <label for="check-surviverhacker">Survivant Hacker?</label>
             </div>
             <div class="checkbox-item">
-                <input type="checkbox" id="check-killerhacker"> <label for="check-killerhacker">Killer Hacker ?</label>
+                <input type="checkbox" id="check-killerhacker"> <label for="check-killerhacker">Killer Hacker?</label>
             </div>
             <div class="checkbox-item">
-                <input type="checkbox" id="check-escaped"> <label for="check-escaped">Victoire ?</label>
+                <input type="checkbox" id="check-escaped"> <label for="check-escaped">Victoire?</label>
             </div>
             <div class="checkbox-item">
-                <input type="checkbox" id="check-hatch"> <label for="check-hatch">Trappe ?</label>
+                <input type="checkbox" id="check-hatch"> <label for="check-hatch">Trappe?</label>
             </div>
             <div class="checkbox-item">
-                <input type="checkbox" id="check-nicegame"> <label for="check-nicegame">Partie Plaisante ?</label>
+                <input type="checkbox" id="check-nicegame"> <label for="check-nicegame">Partie Plaisante?</label>
             </div>
         </div>
 
         <button class="btn-track" onclick="saveMatch()">Enregistrer la partie</button>
+        <button class="button" onclick="removeLastEntry()">Enlever dernière partie</button>
 
         <div class="stats">
             <h3>Tes Statistiques</h3>
             <div id="display-stats">Chargement...</div>
-            <button onclick="clearStats()" style="background: #444; color: #ccc; font-size: 12px;">Réinitialiser</button>
-            <button onclick="removeLastEntry()" style="background: #444; color: #ccc; font-size: 12px;">Enlever dernière partie</button>
+            <button class="button" onclick="clearStats()">Réinitialiser</button>
         </div>
     </div>
 
