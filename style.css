@@ -59,6 +59,23 @@ body {
     color: #e91e63; /* Rose DBD */
 }
 
+.killer-name-noborder {
+    position: sticky;
+    left: 0;
+    background: #1e1e1e; /* Same color as the page background to hide text going under it */
+    z-index: 10;
+    text-align: left !important;
+    font-weight: bold;
+    font-size: 12px;
+    width: 1%;
+    white-space: nowrap;
+    color: #e91e63; /* Rose DBD */
+}
+
+.killer-combo-name {
+    border-right: 2px solid #e91e63;
+}
+
 .stat-value {
     font-family: 'Courier New', monospace;
     text-align: center !important;

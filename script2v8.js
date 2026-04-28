@@ -1,7 +1,8 @@
-let history = JSON.parse(localStorage.getItem('dbdMatches')) || [];
+let history = JSON.parse(localStorage.getItem('dbdMatches2v8')) || [];
 
 function saveMatch() {
-    const killer = document.getElementById('killer-select').value;
+    const killer1 = document.getElementById('killer1-select').value;
+    const killer2 = document.getElementById('killer2-select').value;
     const camp = document.getElementById('check-camp').checked;
     const tunnel = document.getElementById('check-tunnel').checked;
     const slug = document.getElementById('check-slug').checked;
@@ -12,8 +13,8 @@ function saveMatch() {
     const escaped = document.getElementById('check-escaped').checked;
     const hatch = document.getElementById('check-hatch').checked;
     const nicegame = document.getElementById('check-nicegame').checked;
-    history.push({ killer, camp, tunnel, slug, escaped, hatch, bot, meanally, nicegame, surviverhacker, killerhacker });
-    localStorage.setItem('dbdMatches', JSON.stringify(history));
+    history.push({ killer1, killer2, camp, tunnel, slug, escaped, hatch, bot, meanally, nicegame, surviverhacker, killerhacker });
+    localStorage.setItem('dbdMatches2v8', JSON.stringify(history));
 
     alert("Partie enregistrée !");
     updateDisplay();
@@ -36,32 +37,33 @@ function updateDisplay() {
     let totalNicegame = history.filter(m => m.nicegame).length;
     let totalSurviverHacker = history.filter(m => m.surviverhacker).length;
     let totalKillerHacker = history.filter(m => m.killerhacker).length;
-    let statsPerKiller = {};
+    let statsPerKillerCombo = {};
 
     // loop on each match to calculate stats per killer
     history.forEach(match => {
-        const killerName = match.killer;
-
-        //If the killer is not yet in the stats, initialize it
-        if (!statsPerKiller[killerName]) {
-            statsPerKiller[killerName] = { match: 0, camp: 0, tunnel: 0, slug: 0, escaped: 0, hatch: 0, bot: 0, meanally: 0, nicegame: 0, killerhacker: 0, surviverhacker: 0 };
+        // set killer 1 and 2 in alphabetical order to avoid having duplicate stats for the same combo
+        const sortedkillerNames = [match.killer1, match.killer2].sort();
+        const comboKey = sortedkillerNames.join(" & "); // ex: "Trapper & Wraith"
+        //If the killer combo is not yet in the stats, initialize it
+        if (!statsPerKillerCombo[comboKey]) {
+            statsPerKillerCombo[comboKey] = { match: 0, camp: 0, tunnel: 0, slug: 0, escaped: 0, hatch: 0, bot: 0, meanally: 0, nicegame: 0, killerhacker: 0, surviverhacker: 0 };
         }
 
         // Increment all counter for this killer
-        statsPerKiller[killerName].match++;
-        if (match.camp) statsPerKiller[killerName].camp++;
-        if (match.tunnel) statsPerKiller[killerName].tunnel++;
-        if (match.slug) statsPerKiller[killerName].slug++;
-        if (match.escaped) statsPerKiller[killerName].escaped++;
+        statsPerKillerCombo[comboKey].match++;
+        if (match.camp) statsPerKillerCombo[comboKey].camp++;
+        if (match.tunnel) statsPerKillerCombo[comboKey].tunnel++;
+        if (match.slug) statsPerKillerCombo[comboKey].slug++;
+        if (match.escaped) statsPerKillerCombo[comboKey].escaped++;
         if (match.hatch) {
-            statsPerKiller[killerName].hatch++;
-            statsPerKiller[killerName].escaped++
+            statsPerKillerCombo[comboKey].hatch++;
+            statsPerKillerCombo[comboKey].escaped++
         }
-        if (match.bot) statsPerKiller[killerName].bot++;
-        if (match.meanally) statsPerKiller[killerName].meanally++;
-        if (match.nicegame) statsPerKiller[killerName].nicegame++;
-        if (match.killerhacker) statsPerKiller[killerName].killerhacker++;
-        if (match.surviverhacker) statsPerKiller[killerName].surviverhacker++;
+        if (match.bot) statsPerKillerCombo[comboKey].bot++;
+        if (match.meanally) statsPerKillerCombo[comboKey].meanally++;
+        if (match.nicegame) statsPerKillerCombo[comboKey].nicegame++;
+        if (match.killerhacker) statsPerKillerCombo[comboKey].killerhacker++;
+        if (match.surviverhacker) statsPerKillerCombo[comboKey].surviverhacker++;
     });
 
 
@@ -100,9 +102,10 @@ function updateDisplay() {
                                     `;
 
     // sort killers by number of match
-    const sortedKillerMatches = Object.entries(statsPerKiller).sort((a, b) => b[1].match - a[1].match);
+    const sortedKillerComboMatches = Object.entries(statsPerKillerCombo).sort((a, b) => b[1].match - a[1].match);
 
-    sortedKillerMatches.forEach(([killerName, data]) => {
+    sortedKillerComboMatches.forEach(([comboKey, data]) => {
+        const [killer1, killer2] = comboKey.split(" & ");
         let percentCamp = ((data.camp / data.match) * 100).toFixed(0);
         let percentTunnel = ((data.tunnel / data.match) * 100).toFixed(0);
         let percentSlug = ((data.slug / data.match) * 100).toFixed(0);
@@ -115,7 +118,10 @@ function updateDisplay() {
         let percentNicegame = ((data.nicegame / data.match) * 100).toFixed(0);
         completeStatsContent += `
                                             <tr>
-                                                <td class="killer-name">${killerName} (${data.match})</td>
+                                                <td class="killer-combo-name">
+                                                    <div class="killer-name-noborder">${killer1} (${data.match})</div>
+                                                    <div class="killer-name-noborder">${killer2}</div>
+                                                </td>
                                                 <td class="stat-value">${percentCamp}%</td>
                                                 <td class="stat-value">${percentTunnel}%</td>
                                                 <td class="stat-value">${percentSlug}%</td>
@@ -138,7 +144,7 @@ function updateDisplay() {
 
 function clearStats() {
     if (confirm("Effacer toutes tes données ?")) {
-        localStorage.removeItem('dbdMatches');
+        localStorage.removeItem('dbdMatches2v8');
         history = [];
         updateDisplay();
     }
@@ -153,7 +159,7 @@ function removeLastEntry() {
     if (confirm("Supprimer la dernière entrée ? (Tueur : " + lastMatch?.killer + ")")) {
         history.pop();
         // Save the updated history to localStorage
-        localStorage.setItem('dbdMatches', JSON.stringify(history));
+        localStorage.setItem('dbdMatches2v8', JSON.stringify(history));
         updateDisplay();
     }
 }
