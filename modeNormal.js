@@ -15,11 +15,12 @@ function saveMatch() {
     history.push({ killer, camp, tunnel, slug, escaped, hatch, bot, meanally, nicegame, surviverhacker, killerhacker });
     localStorage.setItem('dbdMatches', JSON.stringify(history));
 
-    alert("Partie enregistrée !");
-    updateDisplay();
+    showSuccessToast("Partie enregistrée !" );    
+    updateDisplayNormal(history);
 }
 
-function updateDisplay() {
+function updateDisplayNormal(matchHistory) {
+    history = matchHistory || JSON.parse(localStorage.getItem('dbdMatches')) || [];
     const display = document.getElementById('display-stats');
     if (history.length === 0) {
         display.innerHTML = "Aucune donnée disponible.";
@@ -136,26 +137,4 @@ function updateDisplay() {
     display.innerHTML = completeStatsContent;
 }
 
-function clearStats() {
-    if (confirm("Effacer toutes tes données ?")) {
-        localStorage.removeItem('dbdMatches');
-        history = [];
-        updateDisplay();
-    }
-}
-
-function removeLastEntry() {
-    if (history.length === 0) {
-        alert("Aucune entrée à supprimer !");
-        return;
-    }
-    const lastMatch = history[history.length - 1];
-    if (confirm("Supprimer la dernière entrée ? (Tueur : " + lastMatch?.killer + ")")) {
-        history.pop();
-        // Save the updated history to localStorage
-        localStorage.setItem('dbdMatches', JSON.stringify(history));
-        updateDisplay();
-    }
-}
-
-updateDisplay();
+updateDisplayNormal();
